@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NulOS: Tapir Edition 🧸</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- LOCK SCREEN -->
+    <div id="lock-screen" class="screen">
+        <div class="lock-content">
+            <div class="lock-avatar">🧸</div>
+            <h1>Tapir's MacBook</h1>
+            <div class="password-box">
+                <p>🔒 Password Required</p>
+                <input type="password" id="password-input" placeholder="_ _ _ _ _ _ _ _" maxlength="8">
+                <div class="hint">Hint: The day everything changed 🤍</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DESKTOP SCREEN -->
+    <div id="desktop-screen" class="screen hidden">
+        <!-- Top Menu Bar -->
+        <div class="menu-bar">
+            <span>🍎 NulOS</span>
+            <span>Finder</span>
+            <span>File</span>
+            <span>Edit</span>
+            <span id="clock">10:33 AM</span>
+        </div>
+
+        <!-- Desktop Icons Grid -->
+        <div class="desktop-grid">
+            <div class="desktop-icon" onclick="openApp('mail')">
+                <img src="assets/images/icons/mail.png" alt="Mail">
+                <span>Mail</span>
+            </div>
+            <div class="desktop-icon" onclick="openApp('notes')">
+                <img src="assets/images/icons/notes.png" alt="Notes">
+                <span>Notes</span>
+            </div>
+            <div class="desktop-icon" onclick="openApp('photos')">
+                <img src="assets/images/icons/photos.png" alt="Photos">
+                <span>Photos</span>
+            </div>
+            <div class="desktop-icon" onclick="openApp('timeline')">
+                <img src="assets/images/icons/timeline.png" alt="Timeline">
+                <span>Timeline</span>
+            </div>
+            <div class="desktop-icon" onclick="openApp('games')">
+                <img src="assets/images/icons/games.png" alt="Games">
+                <span>Games</span>
+            </div>
+            <div class="desktop-icon locked-icon" id="secret-app-icon" onclick="openApp('secret')">
+                <img src="assets/images/icons/secret.png" alt="Secret">
+                <span>Secret.exe 🔒</span>
+            </div>
+        </div>
+
+        <!-- WINDOW TEMPLATE (Reusable for apps) -->
+        <div id="app-window" class="window hidden">
+            <div class="window-header">
+                <div class="window-buttons">
+                    <span class="close-btn" onclick="closeApp()"></span>
+                    <span class="minimize-btn"></span>
+                    <span class="maximize-btn"></span>
+                </div>
+                <span id="window-title">App</span>
+            </div>
+            <div class="window-body" id="window-content">
+                <!-- App content gets loaded here dynamically via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- AUDIO PLAYER -->
+    <audio id="bg-music" src="assets/audio/mata-denna-lobaii.mp3" preload="auto"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
