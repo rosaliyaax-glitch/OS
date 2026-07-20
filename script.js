@@ -9,6 +9,7 @@ passwordInput.addEventListener('keypress', function(e) {
         if (passwordInput.value === '02062026') {
             lockScreen.classList.add('hidden');
             desktopScreen.classList.remove('hidden');
+            startEmojiRain(); // Start the cute emoji rain!
         } else {
             passwordInput.value = '';
             passwordInput.placeholder = 'Wrong password! Try again 🤍';
@@ -30,46 +31,62 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
+// Emoji Rain Generator
+function startEmojiRain() {
+    const emojis = ['🤍', '🌸', '🧸', '✨', '🥺', '💌', '💖', '🎸'];
+    setInterval(() => {
+        const emoji = document.createElement('div');
+        emoji.classList.add('floating-emoji');
+        emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+        emoji.style.left = Math.random() * window.innerWidth + 'px';
+        emoji.style.animationDuration = (Math.random() * 3 + 4) + 's'; // Takes 4 to 7 seconds to fall
+        document.body.appendChild(emoji);
+        
+        setTimeout(() => {
+            emoji.remove();
+        }, 7000);
+    }, 400);
+}
+
 // App Window Management
 const appWindow = document.getElementById('app-window');
 const windowTitle = document.getElementById('window-title');
 const windowContent = document.getElementById('window-content');
 
-// Track completed apps for secret unlock
 let openedApps = new Set();
 
 function openApp(appName) {
     appWindow.classList.remove('hidden');
     openedApps.add(appName);
     
-    // Check if user has unlocked secret
+    // Check if user explored enough apps to unlock Secret.exe
     if (openedApps.size >= 5) {
         document.getElementById('secret-app-icon').classList.remove('locked-icon');
     }
 
     if (appName === 'mail') {
-        windowTitle.innerText = 'Mail — Inbox';
+        windowTitle.innerText = 'Mail — Inbox 💌';
         windowContent.innerHTML = `
             <div class="mail-layout" style="display: flex; height: 100%; gap: 15px;">
-                <div class="mail-list" style="width: 220px; border-right: 1px solid rgba(255,255,255,0.1); padding-right: 10px; overflow-y: auto;">
-                    <p onclick="loadEmail(1)" style="padding: 8px; cursor: pointer; border-radius: 6px; background: rgba(255,255,255,0.1); margin-bottom: 5px; font-size: 13px;">1. Hey Dude...</p>
-                    <p onclick="loadEmail(2)" style="padding: 8px; cursor: pointer; border-radius: 6px; margin-bottom: 5px; font-size: 13px;">2. Tapir & Tenge Lore 💀</p>
-                    <p onclick="loadEmail(3)" style="padding: 8px; cursor: pointer; border-radius: 6px; margin-bottom: 5px; font-size: 13px;">3. The Safe Place</p>
-                    <p onclick="loadEmail(4)" style="padding: 8px; cursor: pointer; border-radius: 6px; margin-bottom: 5px; font-size: 13px;">4. Gaslighting Incident 😭</p>
-                    <p onclick="loadEmail(5)" style="padding: 8px; cursor: pointer; border-radius: 6px; margin-bottom: 5px; font-size: 13px;">5. The Website</p>
-                    <p onclick="loadEmail(6)" style="padding: 8px; cursor: pointer; border-radius: 6px; margin-bottom: 5px; font-size: 13px;">6. Official? 🤍</p>
-                    <p onclick="loadEmail(7)" style="padding: 8px; cursor: pointer; border-radius: 6px; margin-bottom: 5px; font-size: 13px;">7. Dab Me Up 🥹</p>
-                    <p onclick="loadEmail(8)" style="padding: 8px; cursor: pointer; border-radius: 6px; font-size: 13px;">8. Nickname Lore Fr</p>
+                <div class="mail-list" style="width: 240px; border-right: 1px solid rgba(255,182,193,0.2); padding-right: 10px; overflow-y: auto;">
+                    <p onclick="loadEmail(1)" style="padding: 10px; cursor: pointer; border-radius: 8px; background: rgba(255,182,193,0.15); margin-bottom: 6px; font-size: 13px; transition: 0.2s;">1. Hey Dude... 💀</p>
+                    <p onclick="loadEmail(2)" style="padding: 10px; cursor: pointer; border-radius: 8px; margin-bottom: 6px; font-size: 13px; background: rgba(255,255,255,0.03);">2. Tapir & Tenge Lore</p>
+                    <p onclick="loadEmail(3)" style="padding: 10px; cursor: pointer; border-radius: 8px; margin-bottom: 6px; font-size: 13px; background: rgba(255,255,255,0.03);">3. The Safe Place 🤍</p>
+                    <p onclick="loadEmail(4)" style="padding: 10px; cursor: pointer; border-radius: 8px; margin-bottom: 6px; font-size: 13px; background: rgba(255,255,255,0.03);">4. Gaslighting Incident 😭</p>
+                    <p onclick="loadEmail(5)" style="padding: 10px; cursor: pointer; border-radius: 8px; margin-bottom: 6px; font-size: 13px; background: rgba(255,255,255,0.03);">5. The Website</p>
+                    <p onclick="loadEmail(6)" style="padding: 10px; cursor: pointer; border-radius: 8px; margin-bottom: 6px; font-size: 13px; background: rgba(255,255,255,0.03);">6. Official? 🌸</p>
+                    <p onclick="loadEmail(7)" style="padding: 10px; cursor: pointer; border-radius: 8px; margin-bottom: 6px; font-size: 13px; background: rgba(255,255,255,0.03);">7. Dab Me Up 🥹</p>
+                    <p onclick="loadEmail(8)" style="padding: 10px; cursor: pointer; border-radius: 8px; font-size: 13px; background: rgba(255,255,255,0.03);">8. Nickname Lore Fr</p>
                 </div>
-                <div class="mail-view" id="email-body-view" style="flex-grow: 1; overflow-y: auto; padding-left: 10px; font-size: 14px; line-height: 1.5;">
-                    <p style="color: rgba(255,255,255,0.5); text-align: center; margin-top: 50px;">Select an email from the left to read 💌</p>
+                <div class="mail-view" id="email-body-view" style="flex-grow: 1; overflow-y: auto; padding-left: 10px; font-size: 14px; line-height: 1.6;">
+                    <p style="color: rgba(255,255,255,0.5); text-align: center; margin-top: 100px;">Select an email from the left to read 💌</p>
                 </div>
             </div>
         `;
     } else if (appName === 'notes') {
-        windowTitle.innerText = 'Notes — Little Thoughts';
+        windowTitle.innerText = 'Notes — Little Thoughts 📝';
         windowContent.innerHTML = `
-            <div style="font-size: 14px; line-height: 1.6;">
+            <div style="font-size: 14px; line-height: 1.7;">
                 <h3 style="color: #ffb6c1; margin-bottom: 10px;">✨ Things I never said out loud</h3>
                 <p>• I still laugh about how we started with "hey dude."</p>
                 <p>• You became my favorite notification.</p>
@@ -77,12 +94,12 @@ function openApp(appName) {
                 <p>• I hope you know how special you are.</p>
                 <p>• Somehow you became my comfort person.</p>
                 
-                <h3 style="color: #ffb6c1; margin-top: 20px; margin-bottom: 10px;">🧸 Tapir.exe Information</h3>
+                <h3 style="color: #ffb6c1; margin-top: 25px; margin-bottom: 10px;">🧸 Tapir.exe Information</h3>
                 <p><b>Name:</b> Tapir 🧸</p>
                 <p><b>Features:</b> ✓ makes me laugh | ✓ annoying sometimes | ✓ secretly cute | ✓ professional Tenge bully</p>
                 <p><b>Warning:</b> Very lovable.</p>
 
-                <h3 style="color: #ffb6c1; margin-top: 20px; margin-bottom: 10px;">🌱 Future Updates (Nulsyy & Tapir v2.0)</h3>
+                <h3 style="color: #ffb6c1; margin-top: 25px; margin-bottom: 10px;">🌱 Future Updates (Nulsyy & Tapir v2.0)</h3>
                 <p>☐ More memories</p>
                 <p>☐ More jokes</p>
                 <p>☐ More birthdays</p>
@@ -91,80 +108,80 @@ function openApp(appName) {
             </div>
         `;
     } else if (appName === 'photos') {
-        windowTitle.innerText = 'Photos — Memories';
+        windowTitle.innerText = 'Photos — Photo Booth Memories 📷';
         windowContent.innerHTML = `
-            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; text-align: center;">
-                <div style="background: white; padding: 15px 15px 25px 15px; border-radius: 4px; color: #333; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
-                    <img src="assets/images/photo1.png" style="width: 100%; height: 160px; object-fit: cover; border-radius: 2px; margin-bottom: 10px;" alt="Memory">
-                    <p style="font-family: monospace; font-size: 13px;">One of my favorite memories 🤍</p>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; text-align: center; padding: 10px;">
+                <div style="background: white; padding: 15px 15px 30px 15px; border-radius: 6px; color: #333; box-shadow: 0 10px 25px rgba(0,0,0,0.4); transform: rotate(-2deg);">
+                    <img src="assets/images/photo1.png" style="width: 100%; height: 160px; object-fit: cover; border-radius: 3px; margin-bottom: 12px;" alt="Memory">
+                    <p style="font-family: monospace; font-size: 13px; color: #555;">One of my favorite memories 🤍</p>
                 </div>
-                <div style="background: white; padding: 15px 15px 25px 15px; border-radius: 4px; color: #333; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
-                    <img src="assets/images/photo2.png" style="width: 100%; height: 160px; object-fit: cover; border-radius: 2px; margin-bottom: 10px;" alt="Memory">
-                    <p style="font-family: monospace; font-size: 13px;">Little moments that mean everything.</p>
+                <div style="background: white; padding: 15px 15px 30px 15px; border-radius: 6px; color: #333; box-shadow: 0 10px 25px rgba(0,0,0,0.4); transform: rotate(2deg);">
+                    <img src="assets/images/photo2.png" style="width: 100%; height: 160px; object-fit: cover; border-radius: 3px; margin-bottom: 12px;" alt="Memory">
+                    <p style="font-family: monospace; font-size: 13px; color: #555;">Little moments that mean everything.</p>
                 </div>
-                <div style="background: white; padding: 15px 15px 25px 15px; border-radius: 4px; color: #333; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
-                    <img src="assets/images/photo3.jpg" style="width: 100%; height: 160px; object-fit: cover; border-radius: 2px; margin-bottom: 10px;" alt="Memory">
-                    <p style="font-family: monospace; font-size: 13px;">More memories loading...</p>
+                <div style="background: white; padding: 15px 15px 30px 15px; border-radius: 6px; color: #333; box-shadow: 0 10px 25px rgba(0,0,0,0.4); transform: rotate(1deg);">
+                    <img src="assets/images/photo3.jpg" style="width: 100%; height: 160px; object-fit: cover; border-radius: 3px; margin-bottom: 12px;" alt="Memory">
+                    <p style="font-family: monospace; font-size: 13px; color: #555;">More memories loading...</p>
                 </div>
-                <div style="background: rgba(255,255,255,0.05); border: 2px dashed rgba(255,255,255,0.2); border-radius: 8px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px;">
-                    <video src="assets/videos/video1.mp4" controls style="width: 100%; height: 140px; border-radius: 4px; object-fit: cover;"></video>
-                    <p style="font-size: 12px; margin-top: 8px; opacity: 0.8;">Our clip 🎥</p>
+                <div style="background: rgba(255,255,255,0.06); border: 2px dashed rgba(255,182,193,0.4); border-radius: 12px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 15px;">
+                    <video src="assets/videos/video1.mp4" controls style="width: 100%; height: 140px; border-radius: 6px; object-fit: cover;"></video>
+                    <p style="font-size: 12px; margin-top: 10px; color: #ffb6c1;">Our clip 🎥</p>
                 </div>
             </div>
         `;
     } else if (appName === 'timeline') {
-        windowTitle.innerText = 'Timeline — Our Story';
+        windowTitle.innerText = 'Timeline — Our Story 📅';
         windowContent.innerHTML = `
-            <div style="padding-left: 20px; border-left: 2px solid rgba(255,255,255,0.3); display: flex; flex-direction: column; gap: 25px;">
+            <div style="padding-left: 25px; border-left: 2px solid rgba(255,182,193,0.4); display: flex; flex-direction: column; gap: 30px;">
                 <div>
-                    <span style="background: #ffb6c1; color: #111; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: bold;">23 December 2025</span>
-                    <h4 style="margin-top: 5px;">🤍 First met ("Hey dude")</h4>
+                    <span style="background: #ffb6c1; color: #222; padding: 3px 10px; border-radius: 6px; font-size: 11px; font-weight: bold;">23 December 2025</span>
+                    <h4 style="margin-top: 6px; color: #fff;">🤍 First met ("Hey dude")</h4>
                 </div>
                 <div>
-                    <span style="background: #ffb6c1; color: #111; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: bold;">May 2026</span>
-                    <h4 style="margin-top: 5px;">🌸 Became closer & matching pfps</h4>
+                    <span style="background: #ffb6c1; color: #222; padding: 3px 10px; border-radius: 6px; font-size: 11px; font-weight: bold;">May 2026</span>
+                    <h4 style="margin-top: 6px; color: #fff;">🌸 Became closer & matching pfps</h4>
                 </div>
                 <div>
-                    <span style="background: #ffb6c1; color: #111; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: bold;">2 June 2026</span>
-                    <h4 style="margin-top: 5px;">💌 Official</h4>
+                    <span style="background: #ffb6c1; color: #222; padding: 3px 10px; border-radius: 6px; font-size: 11px; font-weight: bold;">2 June 2026</span>
+                    <h4 style="margin-top: 6px; color: #fff;">💌 Official</h4>
                 </div>
                 <div>
-                    <span style="background: #ffb6c1; color: #111; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: bold;">27 June 2026</span>
-                    <h4 style="margin-top: 5px;">✨ First meetup IRL</h4>
+                    <span style="background: #ffb6c1; color: #222; padding: 3px 10px; border-radius: 6px; font-size: 11px; font-weight: bold;">27 June 2026</span>
+                    <h4 style="margin-top: 6px; color: #fff;">✨ First meetup IRL</h4>
                 </div>
                 <div style="opacity: 0.5;">
-                    <span style="background: rgba(255,255,255,0.2); color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">Future</span>
-                    <h4 style="margin-top: 5px;">✨ More memories to be loaded...</h4>
+                    <span style="background: rgba(255,255,255,0.2); color: white; padding: 3px 10px; border-radius: 6px; font-size: 11px;">Future</span>
+                    <h4 style="margin-top: 6px;">✨ More memories to be loaded...</h4>
                 </div>
             </div>
         `;
     } else if (appName === 'games') {
-        windowTitle.innerText = 'Mini Game — Heart Collector';
+        windowTitle.innerText = 'Mini Game — Heart Collector 🎮';
         windowContent.innerHTML = `
-            <div style="text-align: center; margin-top: 40px;">
-                <h3>Catch the love for Tapir 🤍</h3>
-                <p id="game-score" style="font-size: 20px; margin: 15px 0;">Score: 0 / 5</p>
-                <div id="game-area" style="height: 220px; position: relative; background: rgba(0,0,0,0.2); border-radius: 10px; overflow: hidden; cursor: crosshair;" onclick="catchHeart()">
-                    <span id="heart-target" style="position: absolute; font-size: 28px; cursor: pointer; user-select: none;">🤍</span>
+            <div style="text-align: center; margin-top: 30px;">
+                <h3 style="color: #ffb6c1;">Catch the love for Tapir 🤍</h3>
+                <p id="game-score" style="font-size: 18px; margin: 15px 0;">Score: 0 / 5</p>
+                <div id="game-area" style="height: 240px; position: relative; background: rgba(0,0,0,0.25); border-radius: 14px; border: 1px solid rgba(255,182,193,0.2); overflow: hidden; cursor: crosshair;" onclick="catchHeart()">
+                    <span id="heart-target" style="position: absolute; font-size: 32px; cursor: pointer; user-select: none;">🤍</span>
                 </div>
             </div>
         `;
         initGame();
     } else if (appName === 'secret') {
         windowTitle.innerText = 'Secret.exe 🔒 — Birthday Reveal';
-        bgMusic.play();
+        bgMusic.play().catch(e => console.log("Audio play blocked, needs user interaction"));
         windowContent.innerHTML = `
-            <div style="text-align: center; padding: 20px; animation: fadeIn 1s ease-in-out;">
-                <h2 style="color: #ffb6c1; margin-bottom: 10px;">✨ HAPPY BIRTHDAY MY LOVE!!! ✨</h2>
-                <p style="font-size: 18px; margin-bottom: 20px;">🌸 💌 🌸</p>
-                <div style="background: rgba(255,255,255,0.08); padding: 25px; border-radius: 12px; text-align: left; line-height: 1.6; font-size: 14px; border: 1px solid rgba(255,255,255,0.15);">
-                    <h3 style="color: #ffb6c1; margin-bottom: 10px; text-align: center;">My Promise To You</h3>
+            <div style="text-align: center; padding: 15px;">
+                <h2 style="color: #ffb6c1; margin-bottom: 10px; font-size: 22px;">✨ HAPPY BIRTHDAY MY LOVE!!! ✨</h2>
+                <p style="font-size: 18px; margin-bottom: 20px;">🌸 🧸 🌸</p>
+                <div style="background: rgba(255,182,193,0.08); padding: 25px; border-radius: 14px; text-align: left; line-height: 1.7; font-size: 14px; border: 1px solid rgba(255,182,193,0.3); box-shadow: inset 0 0 15px rgba(255,182,193,0.1);">
+                    <h3 style="color: #ffb6c1; margin-bottom: 12px; text-align: center;">My Promise To You</h3>
                     <p>I don't know what the future is going to look like, and I don't know where life is going to take us, but I do know one thing...</p>
                     <p style="margin-top: 10px;"><b>I want to keep choosing you.</b></p>
                     <p style="margin-top: 10px;">I promise to keep being the annoying person who teases you, laughs at your dumb jokes, remembers the little things, and reminds you how much you matter. I promise that even when things get hard, I'll still be cheering for you in my own chaotic way :3</p>
                     <p style="margin-top: 10px;">Thank you for being someone I can laugh with, talk to, and make memories with.</p>
-                    <p style="margin-top: 15px; text-align: center;">So yeah...<br><b>You're stuck with me now BLEHHHH :P</b><br>Thanks for not getting rid of me, even when I was a "dude" named Tenge 😭🙏</p>
-                    <p style="text-align: center; font-size: 20px; margin-top: 15px;">🌸🧸🌸</p>
+                    <p style="margin-top: 18px; text-align: center;">So yeah...<br><b>You're stuck with me now BLEHHHH :P</b><br>Thanks for not getting rid of me, even when I was a "dude" named Tenge 😭🙏</p>
+                    <p style="text-align: center; font-size: 22px; margin-top: 15px;">🌸🤍🌸</p>
                 </div>
             </div>
         `;
@@ -205,8 +222,8 @@ function moveHeart() {
     const area = document.getElementById('game-area');
     if (!heart || !area) return;
     
-    const maxX = area.clientWidth - 40;
-    const maxY = area.clientHeight - 40;
+    const maxX = area.clientWidth - 45;
+    const maxY = area.clientHeight - 45;
     const randomX = Math.floor(Math.random() * maxX);
     const randomY = Math.floor(Math.random() * maxY);
     
@@ -218,7 +235,7 @@ function catchHeart() {
     gameScore++;
     document.getElementById('game-score').innerText = `Score: ${gameScore} / 5`;
     if (gameScore >= 5) {
-        document.getElementById('game-area').innerHTML = `<h3 style="color: #7fffd4; margin-top: 80px;">❤️ Achievement unlocked: You found enough love. Secret.exe fully unlocked!</h3>`;
+        document.getElementById('game-area').innerHTML = `<h3 style="color: #7fffd4; margin-top: 85px;">❤️ Achievement unlocked: You found enough love. Secret.exe fully unlocked!</h3>`;
         document.getElementById('secret-app-icon').classList.remove('locked-icon');
     } else {
         moveHeart();
